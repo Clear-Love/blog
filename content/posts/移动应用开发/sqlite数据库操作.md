@@ -6,7 +6,6 @@ tags: ["kotlin", "Android", "sqlite"]
 categories: ["移动应用开发"]
 series: ["Android开发"]
 series_weight: 2
-series_weight: 1
 featuredImage: https://pan.lmio.xyz/pic/b2a5a2d407e5dfd2e6a127f4e4ff5074.png
 toc:
   enable: true

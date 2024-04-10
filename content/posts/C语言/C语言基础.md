@@ -1,8 +1,16 @@
 ---
 title: C语言基础
-date: 2023-05-26T06:02:28+08:00
+date: 2024-04-10T10:02:28+08:00
 draft: false
+tags:
+  - C语言
+categories:
+  - C语言
+series:
+  - C language
 hidden: false
+toc:
+  enable: true
 ---
 ## 环境配置
 ### 1.安装mingw
