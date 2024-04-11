@@ -6,7 +6,7 @@ tags:
 categories:
   - 嵌入式linux
 series:
-  - linux
+  - linux开发
 hidden: false
 date: 2024-04-10T16:02:28+08:00
 ---
