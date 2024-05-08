@@ -11,8 +11,9 @@ series:
 hidden: false
 toc:
   enable: true
-featuredImage: https://pan.lmio.xyz/public/091c0066136730598dd01a0cfeb2d6c6.png
+featuredImage: https://pan.lmio.xyz/pic/a95e5b80289820b6eaa1d236707b4c09.png
 ---
+
 ## 环境配置
 ### 1.安装mingw
 
