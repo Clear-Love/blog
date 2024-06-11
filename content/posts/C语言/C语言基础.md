@@ -330,8 +330,15 @@ int flapBit(int a, int b) {
 
 - 取一个数二进制的最后一位1
 ```c
-int getListOne(int a) {
+int getLastOne(int a) {
 	return a & (a-1);
+}
+```
+
+- 去掉二进制数最低位的1
+```c
+int removeLastOne(int a) {
+	return a ^ (a & -a);
 }
 ```
 
