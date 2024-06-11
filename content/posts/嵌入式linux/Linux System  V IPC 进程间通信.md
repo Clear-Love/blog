@@ -1,7 +1,12 @@
 ---
-title: "网络编程"
+title: "Linux System  V IPC 进程间通信"
 date: 2024-06-07T09:32:35+08:00
-draft: true
+draft: false
+hidden: false
+series:
+  - linux开发
+categories:
+  - 嵌入式linux
 ---
 
 
