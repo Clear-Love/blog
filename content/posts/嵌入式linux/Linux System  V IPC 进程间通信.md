@@ -7,8 +7,20 @@ series:
   - linux开发
 categories:
   - 嵌入式linux
+tags:
+  - linux
+  - 进程间通信
+  - IPC
+  - 共享内存
+  - 消息队列
+  - 信号量
+featuredImage: https://pan.lmio.xyz/pic/39aa4431069272f1b8551e33dc2b3d30.png
+toc: true
 ---
 
+## IPC对象
+
+![](https://pan.lmio.xyz/pic/39aa4431069272f1b8551e33dc2b3d30.png)
 
 ## 消息队列
 
@@ -141,25 +153,10 @@ static int deque_popleft(deque *q){
     return x;
 }
 
-static int deque_pop(deque *q) {
-    int x = q->tail;
-    q->tail = (q->tail-1+q->size) % q->size;
-    return x%(q->size-1);
-}
-
-static bool deque_pushleft(deque *q) {
-    q->head = (q->head-1 + q->size) % q->size;
-    return true;
-}
-
 static int deque_push(deque *q) {
     int ret = q->tail;
     q->tail = (q->tail+1) % q->size;
     return ret;
-}
-
-static inline int deque_size(deque *q){
-    return q->tail - q->head;
 }
 
 static inline int deque_destory(deque *q){
@@ -168,6 +165,7 @@ static inline int deque_destory(deque *q){
 
 #endif // __DEQUE_H__
 ```
+生产者消费者模型
 
 ```c
 #include <semaphore.h>
@@ -187,7 +185,7 @@ sem_t* sem_w;
 pthread_mutex_t w_mutex;
 pthread_mutex_t r_mutex;
 
-int cnt;
+int cnt = 0;
 
 int shmid;
 char (*shmaddr)[BUFSIZE];
@@ -197,11 +195,6 @@ deque* q;
 void shm_read() {
     pthread_mutex_lock(&r_mutex);
     int ret = deque_popleft(q);
-    if (ret == -1) {
-        printf("deque is empty\n");
-        pthread_mutex_unlock(&r_mutex);
-        return;
-    }
     printf("tid: %ld, read: %s\n", pthread_self(), shmaddr[ret]);
     pthread_mutex_unlock(&r_mutex);
 }
@@ -209,10 +202,6 @@ void shm_read() {
 void shm_write() {
     pthread_mutex_lock(&w_mutex);
     int ret = deque_push(q);
-    if (ret == -1) {
-        printf("deque is full\n");
-        return;
-    }
     sprintf(shmaddr[ret], "%d", cnt);
     printf("%ld write: %d\n", pthread_self(), cnt);
     cnt++;
@@ -246,7 +235,6 @@ int main(int argc, char const *argv[]) {
     q = deque_init(BUFCNT);
     pthread_mutex_init(&w_mutex, NULL);
     pthread_mutex_init(&r_mutex, NULL);
-    cnt = 0;
 
     // 创建一个读信号量，不存在则创建，存在就清空内容
     sem_r = sem_open("sem_r", O_CREAT, 0666, 0);
